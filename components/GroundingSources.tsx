@@ -1,6 +1,5 @@
 import React from 'react';
-// Merge: Include both WebSource and SchoolStatus, as SchoolStatus is needed for the badge function
-import { WebSource, SchoolStatus } from '../types'; 
+import { WebSource, SchoolStatus } from '../types';
 import { ExternalLink, Globe } from 'lucide-react';
 
 interface GroundingSourcesProps {
@@ -10,7 +9,6 @@ interface GroundingSourcesProps {
 const GroundingSources: React.FC<GroundingSourcesProps> = ({ sources }) => {
   if (sources.length === 0) return null;
 
-  // Keep the status badge logic (from the remote version)
   const getStatusBadge = (status?: SchoolStatus) => {
     switch (status) {
       case SchoolStatus.OPEN:
@@ -31,7 +29,6 @@ const GroundingSources: React.FC<GroundingSourcesProps> = ({ sources }) => {
         <Globe className="w-4 h-4" />
         Verified Sources
       </h3>
-      {/* Choose one grid layout, 'sm:grid-cols-1' is better for mobile readability */}
       <div className="grid gap-3 sm:grid-cols-1">
         {sources.map((source, index) => (
           <a
@@ -39,7 +36,6 @@ const GroundingSources: React.FC<GroundingSourcesProps> = ({ sources }) => {
             href={source.uri}
             target="_blank"
             rel="noopener noreferrer"
-            // Merge classes to include badge display (flex items-center justify-between)
             className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-800 transition-colors group border border-slate-800 bg-slate-900/50"
           >
             <div className="flex items-center gap-3 min-w-0">
@@ -56,7 +52,6 @@ const GroundingSources: React.FC<GroundingSourcesProps> = ({ sources }) => {
               </div>
             </div>
             
-            {/* Include the badge display logic */}
             <div className="flex-shrink-0 ml-3">
               {getStatusBadge(source.status)}
             </div>

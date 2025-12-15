@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { checkSchoolStatus } from './services/geminiService';
 import { StatusResponse, SchoolStatus } from './types';
 import StatusIndicator from './components/StatusIndicator';
 import GroundingSources from './components/GroundingSources';
 import Header from './components/Header';
-// Merging the imports to include all necessary icons: RefreshCw, AlertTriangle, Info, Calendar
-import { RefreshCw, AlertTriangle, Info, Calendar } from 'lucide-react'; 
+import { RefreshCw, AlertTriangle, Calendar } from 'lucide-react';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<StatusResponse | null>(null);
   const [error, setError] = useState<boolean>(false);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     setError(false);
     try {
@@ -27,11 +26,17 @@ const App: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchData();
-  }, []);
+    
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 30000);
+
+    return () => clearInterval(intervalId);
+  }, [fetchData]);
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col font-sans text-gray-100">
@@ -65,7 +70,7 @@ const App: React.FC = () => {
             className="flex items-center gap-2 px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm font-medium text-gray-300 hover:bg-slate-700 active:bg-slate-600 disabled:opacity-50 transition-colors shadow-sm"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-            Refresh
+            {loading ? 'Scanning...' : 'Refresh'}
           </button>
         </div>
 
@@ -82,27 +87,12 @@ const App: React.FC = () => {
            </div>
         )}
 
-        {/* AI Summary Section and Sources List (Combined) */}
+        {/* Sources List & Disclaimer */}
         {!loading && data && !error && (
           <div className="mt-8 animate-fade-in-up">
             
-            {/* AI Summary Section - Kept from HEAD */}
-            <div className="bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-800">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="bg-indigo-950/50 p-1.5 rounded-md border border-indigo-900/30">
-                    <Info className="w-4 h-4 text-indigo-400" />
-                </div>
-                <h2 className="text-lg font-bold text-gray-100">Intelligence Summary</h2>
-              </div>
-              <p className="text-gray-400 leading-relaxed text-base">
-                {data.summary}
-              </p>
-            </div>
-
-            {/* Sources List */}
             <GroundingSources sources={data.sources} />
             
-            {/* Disclaimer */}
             <p className="text-xs text-gray-700 text-center mt-12 mb-4">
               Information is gathered by AI from public news sources (10TV, NBC4, ABC6) and district sites. Always verify with official school communication channels.
             </p>

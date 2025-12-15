@@ -7,10 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-<<<<<<< HEAD
-=======
 # Dependencies
->>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
 node_modules
 dist
 dist-ssr
@@ -22,12 +19,6 @@ dist-ssr
 .idea
 .DS_Store
 *.suo
-<<<<<<< HEAD
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-=======
 *.ntvs
 *.njsproj
 *.sln
@@ -37,4 +28,3 @@ dist-ssr
 .env
 .env.*
 !.env.example
->>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d

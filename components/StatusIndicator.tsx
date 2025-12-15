@@ -8,7 +8,8 @@ interface StatusIndicatorProps {
 }
 
 const StatusIndicator: React.FC<StatusIndicatorProps> = ({ status, loading }) => {
-  if (loading) {
+  // Only show the full loading screen if we don't have any status data yet
+  if (loading && !status) {
     return (
       <div className="flex flex-col items-center justify-center py-12 animate-pulse">
         <Loader2 className="w-24 h-24 text-blue-500/80 animate-spin mb-4" />

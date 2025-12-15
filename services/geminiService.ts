@@ -8,7 +8,6 @@ export const checkSchoolStatus = async (): Promise<StatusResponse> => {
   const now = new Date();
   
   // LOGIC: If it is after 3:00 PM (15:00), check for the NEXT day.
-  // This handles the "night before" check for delays.
   let targetDate = new Date(now);
   if (now.getHours() >= 15) {
     targetDate.setDate(now.getDate() + 1);
@@ -74,7 +73,7 @@ export const checkSchoolStatus = async (): Promise<StatusResponse> => {
     else if (text.includes("STATUS: CLOSED")) status = SchoolStatus.CLOSED;
     else if (text.includes("STATUS: DELAYED")) status = SchoolStatus.DELAYED;
 
-    // Parse Source Evaluations (Advanced Logic)
+    // Parse Source Evaluations
     const sourceEvaluations = new Map<string, SchoolStatus>();
     const lines = text.split('\n');
     for (const line of lines) {
@@ -133,7 +132,7 @@ export const checkSchoolStatus = async (): Promise<StatusResponse> => {
     console.error("Error checking school status:", error);
     return {
       status: SchoolStatus.UNKNOWN,
-      summary: "", // Summary removed from UI, no need to parse
+      summary: "",
       sources: [],
       timestamp: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       checkedDate: fullDate,

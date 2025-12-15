@@ -8,7 +8,7 @@ export enum SchoolStatus {
 export interface WebSource {
   title: string;
   uri: string;
-  status?: SchoolStatus; // Merged property
+  status?: SchoolStatus;
 }
 
 export interface StatusResponse {
