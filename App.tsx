@@ -4,11 +4,8 @@ import { StatusResponse, SchoolStatus } from './types';
 import StatusIndicator from './components/StatusIndicator';
 import GroundingSources from './components/GroundingSources';
 import Header from './components/Header';
-<<<<<<< HEAD
-import { RefreshCw, AlertTriangle, Info, Calendar } from 'lucide-react';
-=======
-import { RefreshCw, AlertTriangle, Calendar } from 'lucide-react';
->>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
+// Merging the imports to include all necessary icons: RefreshCw, AlertTriangle, Info, Calendar
+import { RefreshCw, AlertTriangle, Info, Calendar } from 'lucide-react'; 
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -85,10 +82,11 @@ const App: React.FC = () => {
            </div>
         )}
 
-<<<<<<< HEAD
-        {/* AI Summary Section */}
+        {/* AI Summary Section and Sources List (Combined) */}
         {!loading && data && !error && (
           <div className="mt-8 animate-fade-in-up">
+            
+            {/* AI Summary Section - Kept from HEAD */}
             <div className="bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-800">
               <div className="flex items-center gap-2 mb-3">
                 <div className="bg-indigo-950/50 p-1.5 rounded-md border border-indigo-900/30">
@@ -105,14 +103,6 @@ const App: React.FC = () => {
             <GroundingSources sources={data.sources} />
             
             {/* Disclaimer */}
-=======
-        {/* Sources List & Disclaimer */}
-        {!loading && data && !error && (
-          <div className="mt-8 animate-fade-in-up">
-            
-            <GroundingSources sources={data.sources} />
-            
->>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
             <p className="text-xs text-gray-700 text-center mt-12 mb-4">
               Information is gathered by AI from public news sources (10TV, NBC4, ABC6) and district sites. Always verify with official school communication channels.
             </p>
