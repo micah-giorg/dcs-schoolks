@@ -8,10 +8,7 @@ export const checkSchoolStatus = async (): Promise<StatusResponse> => {
   const now = new Date();
   
   // LOGIC: If it is after 3:00 PM (15:00), check for the NEXT day.
-<<<<<<< HEAD
   // This handles the "night before" check for delays.
-=======
->>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
   let targetDate = new Date(now);
   if (now.getHours() >= 15) {
     targetDate.setDate(now.getDate() + 1);
@@ -30,12 +27,6 @@ export const checkSchoolStatus = async (): Promise<StatusResponse> => {
     Target Date for Status: **${fullDate}** (Look for mentions of "${shortDate}" or "${dateWithYear}")
 
     **Task:**
-<<<<<<< HEAD
-    Perform a targeted Google Search to find if schools are **CLOSED** or **DELAYED**.
-    Specifically check for the phrase "2 hour delay" associated with the target date.
-
-    **Search Queries:**
-=======
     1. Check these SPECIFIC sources for "Closed" or "Delay" statuses:
        - https://www.nbc4i.com/weather/closings/ (Check this URL specifically)
        - Delaware City Schools Official Website (dcs.k12.oh.us)
@@ -45,26 +36,10 @@ export const checkSchoolStatus = async (): Promise<StatusResponse> => {
 
     **Search Queries:**
     - "site:nbc4i.com/weather/closings/ Delaware City Schools"
->>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
     - "Delaware City Schools 2 hour delay ${dateWithYear}"
     - "Delaware City Schools status ${shortDate}"
     - "site:dcs.k12.oh.us"
     - "site:10tv.com Delaware City Schools closings"
-<<<<<<< HEAD
-    - "site:nbc4i.com Delaware City Schools closings"
-    - "Delaware City Schools Facebook"
-
-    **Analysis Rules (Strict):**
-    1. **DETECT DELAYS:** Look for "2 Hour Delay", "Two Hour Delay", "Delay", "Closed".
-    2. **MATCH DATE:** The alert must apply to **${shortDate}** or **${dateWithYear}** or "Tomorrow" (if the article is from today).
-    3. **SPECIFIC PHRASE:** If you see a snippet containing "2 hour delay ${dateWithYear}" or similar, immediately report status as **DELAYED**.
-    4. **SOURCE CHECK:** Check snippets from dcs.k12.oh.us, 10tv.com, nbc4i.com, abc6onyourside.com.
-    5. **DEFAULT:** Only if ALL sources explicitly show NO alerts for this date, assume OPEN.
-
-    **Response Format:**
-    STATUS: [OPEN or CLOSED or DELAYED]
-    SUMMARY: [Explain the finding. E.g., "The district website reports a 2-hour delay for ${shortDate}."]
-=======
     - "site:abc6onyourside.com school closings"
 
     **Analysis Rules:**
@@ -80,7 +55,6 @@ export const checkSchoolStatus = async (): Promise<StatusResponse> => {
     SOURCE_EVALUATION: 10tv.com | [OPEN/CLOSED/DELAYED/UNKNOWN]
     SOURCE_EVALUATION: nbc4i.com | [OPEN/CLOSED/DELAYED/UNKNOWN]
     SOURCE_EVALUATION: abc6onyourside.com | [OPEN/CLOSED/DELAYED/UNKNOWN]
->>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
   `;
 
   try {
@@ -100,14 +74,7 @@ export const checkSchoolStatus = async (): Promise<StatusResponse> => {
     else if (text.includes("STATUS: CLOSED")) status = SchoolStatus.CLOSED;
     else if (text.includes("STATUS: DELAYED")) status = SchoolStatus.DELAYED;
 
-<<<<<<< HEAD
-    // Parse the summary
-    const summaryMatch = text.split("SUMMARY:");
-    const summary = summaryMatch.length > 1 ? summaryMatch[1].trim() : "Unable to retrieve specific details.";
-
-    // Extract sources from grounding metadata
-=======
-    // Parse Source Evaluations
+    // Parse Source Evaluations (Advanced Logic)
     const sourceEvaluations = new Map<string, SchoolStatus>();
     const lines = text.split('\n');
     for (const line of lines) {
@@ -128,17 +95,10 @@ export const checkSchoolStatus = async (): Promise<StatusResponse> => {
     }
 
     // Extract sources from grounding metadata and apply status
->>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
     const rawChunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks as GeminiGroundingChunk[] | undefined;
     
     const sources = rawChunks
       ?.filter(chunk => chunk.web?.uri && chunk.web?.title)
-<<<<<<< HEAD
-      .map(chunk => ({
-        title: chunk.web?.title || "Source",
-        uri: chunk.web?.uri || "#"
-      })) || [];
-=======
       .map(chunk => {
         const uri = chunk.web?.uri || "";
         const lowerUri = uri.toLowerCase();
@@ -158,17 +118,12 @@ export const checkSchoolStatus = async (): Promise<StatusResponse> => {
           status: sourceStatus
         };
       }) || [];
->>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
 
     const uniqueSources = sources.filter((v, i, a) => a.findIndex(t => (t.uri === v.uri)) === i);
 
     return {
       status,
-<<<<<<< HEAD
-      summary,
-=======
       summary: "", // Summary removed from UI, no need to parse
->>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
       sources: uniqueSources,
       timestamp: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       checkedDate: fullDate,
@@ -178,11 +133,7 @@ export const checkSchoolStatus = async (): Promise<StatusResponse> => {
     console.error("Error checking school status:", error);
     return {
       status: SchoolStatus.UNKNOWN,
-<<<<<<< HEAD
-      summary: "An error occurred while cross-referencing news sources.",
-=======
-      summary: "",
->>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
+      summary: "", // Summary removed from UI, no need to parse
       sources: [],
       timestamp: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       checkedDate: fullDate,
