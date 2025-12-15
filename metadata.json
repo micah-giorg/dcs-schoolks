@@ -1,4 +1,10 @@
 {
+<<<<<<< HEAD
   "name": "Delaware City Schools Status",
   "description": "Real-time status checker for Delaware City Schools using AI-powered search grounding."
+=======
+  "name": "Copy of Delaware City Schools Status",
+  "description": "Real-time status checker for Delaware City Schools using AI-powered search grounding.",
+  "requestFramePermissions": []
+>>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
 }

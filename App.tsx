@@ -4,7 +4,11 @@ import { StatusResponse, SchoolStatus } from './types';
 import StatusIndicator from './components/StatusIndicator';
 import GroundingSources from './components/GroundingSources';
 import Header from './components/Header';
+<<<<<<< HEAD
 import { RefreshCw, AlertTriangle, Info, Calendar } from 'lucide-react';
+=======
+import { RefreshCw, AlertTriangle, Calendar } from 'lucide-react';
+>>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -81,6 +85,7 @@ const App: React.FC = () => {
            </div>
         )}
 
+<<<<<<< HEAD
         {/* AI Summary Section */}
         {!loading && data && !error && (
           <div className="mt-8 animate-fade-in-up">
@@ -100,6 +105,14 @@ const App: React.FC = () => {
             <GroundingSources sources={data.sources} />
             
             {/* Disclaimer */}
+=======
+        {/* Sources List & Disclaimer */}
+        {!loading && data && !error && (
+          <div className="mt-8 animate-fade-in-up">
+            
+            <GroundingSources sources={data.sources} />
+            
+>>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
             <p className="text-xs text-gray-700 text-center mt-12 mb-4">
               Information is gathered by AI from public news sources (10TV, NBC4, ABC6) and district sites. Always verify with official school communication channels.
             </p>

@@ -8,6 +8,10 @@ export enum SchoolStatus {
 export interface WebSource {
   title: string;
   uri: string;
+<<<<<<< HEAD
+=======
+  status?: SchoolStatus;
+>>>>>>> a1f8e1f46a5d3f79a405852c761abdf64c0bdb8d
 }
 
 export interface StatusResponse {
